@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Roman Numberal Demo</title>
+  <title>Roman Numeral Demo</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
-<body> 
+<body id="container"> 
     <h1>Roman Numberal Convert Tool</h1>
-
+      <p>Please input the Capital letters: </p>
       <input type="text" id="txt" />
       <button id="submit">Convert</button>
      
@@ -19,8 +19,8 @@
 
          // build the main convert function
           var convert  = function() {
-            // get user's input String value, named it variable s
-            var s = $('#txt').val();  
+            // get user's input String value, named it variable str
+            var str = $('#txt').val();  
             
             var map = {
                 I:1,
@@ -33,27 +33,27 @@
             };
 
             var sum = 0;    
-            for(var i = 0 ; i < s.length ; i++){
-                var v1 = map[s[i]];
-                var v2 = map[s[i+1]];
+            for(var i = 0 ; i < str.length ; i++){
+                var v1 = map[str[i]];
+                var v2 = map[str[i+1]];
+                // if next roman numeral value greater than the previous one, then result equal v2 -v1
                 if(v2 > v1){
                     sum = sum + v2 - v1;
                     i++;
                 }  else {
+                  // normal case, if v2 <= v1. result equal v2 + v1
                     sum = sum+v1;
                 }
             }
                 return sum;
             };
 
-            // Set new value for display the out
+            // Set new value for displaying the output
             $('#txt').val(convert());
 
         });
     });
 
-
   </script>
-
 </body>
 </html>

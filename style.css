@@ -1,0 +1,21 @@
+#container {
+  padding-right: 15px;
+  padding-left: 40px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#txt {
+	color: green; 
+	font-family: Verdana;
+	 font-weight: bold; 
+	 font-size: 12px;
+	 background-color: #ffeecc; 
+}
+
+#submit {
+  background-color: #5b6b64;
+  color: #FFFFFF;
+  padding: 5px;
+  border-radius: 5px;
+}
