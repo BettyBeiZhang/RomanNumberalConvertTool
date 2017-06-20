@@ -8,16 +8,22 @@
 </head>
 <body id="container"> 
     <h1>Roman Numeral Convert Tool</h1>
-  
       <input type="text" id="txt" />
       <button id="submit">Convert</button>
-      <!-- <div id="answer">500</div> -->
      
   <script>
 
      $(document).ready(function(){
+
+    //helper function for consecutive letters input
+    function letterCount(str){
+        var s= str.match(/([a-zA-Z])\1*/g)||[];
+        return s.map(function(item){
+            return item.length;
+        });
+    }
        // build the main convert function
-          var convert  = function(str) {  
+          var convert  = function(romanNumeral) {  
             //debugger;
             var map = {
                 I:1,
@@ -26,20 +32,30 @@
                 L:50,
                 C:100,
                 D:500,
-                M:1000,
+                M:1000
+
             };
+      if (romanNumeral === '' ) {
+        return 0;
+      }
+      // }else if(97 <= Number(romanNumeral[0].charCodeAt()) <= 122 ){
+      //   alert("Not a valid roman numerals, Roman Numerals can only be capital I, V, L, C, D or M");
+      //   return;
+      // }
 
-
+      if (romanNumeral === null || typeof romanNumeral !== 'string') {
+        alert("Not a valid roman numerals");
+        return;
+      }else if(letterCount(romanNumeral)[0] >= 4 && !romanNumeral.includes("M"))  {
+        alert("Not a valid roman numerals");
+        return;
+      } 
 
             var sum = 0;    
-            for(var i = 0 ; i < str.length ; i++){
-                var v1 = map[str[i]];
-                var v2 = map[str[i+1]];
+            for(var i = 0; i < romanNumeral.length; i++){
+                var v1 = map[romanNumeral[i]];
+                var v2 = map[romanNumeral[i+1]];
 
-                if(v1 == undefined || v2 == undefined) {
-                  alert("Not a valid Roman Numeral input. Please enter capital letters from I,V,X,L,C,D,M");
-                  return;
-                }
                 // if next roman numeral value greater than the previous one, then result equal v2 -v1
                 if(v2 > v1){
                     sum = sum + v2 - v1;
@@ -49,22 +65,17 @@
                     sum = sum+v1;
                 }
             }
-                return sum;
-            };
+
+           return sum; 
+              
+          };
 
         $("#submit").on("click", function(){
           // get user's input String value, named it variable str
             var str = $('#txt').val(); 
-
             // Set new value for displaying the output
             $('#txt').val(convert(str));
         });
-  
-
-
-
-
-
     });
 
   </script>
