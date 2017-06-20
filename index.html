@@ -19,7 +19,10 @@
     function letterCount(str) {
       var s = str.match(/([a-zA-Z])\1*/g) || [];
       return s.map(function(item) {
-        return item.length;
+        return {
+          letter: item[0],
+          length: item.length
+        };
       });
     }
     // build the main convert function
@@ -37,17 +40,23 @@
       };
       if (romanNumeral === '') {
         return 0;
-      } 
-     
-      if (romanNumeral === null || typeof romanNumeral !== 'string') {
-        alert("Not a valid roman numerals");
-        return;
-      } else if (letterCount(romanNumeral)[0] >= 4 && !romanNumeral.includes("M")) {
-        alert("Not a valid roman numerals");
-        return;
-      }else if ( (romanNumeral.includes("V") && romanNumeral.length === 2 ) || (romanNumeral.includes("L") && romanNumeral.length === 2 ) || (romanNumeral.includes("D") && romanNumeral.length === 2) ){
-        alert("Not a valid roman numerals");
-        return;
+      }
+
+
+      var consecutiveLengths = letterCount(romanNumeral);
+      for (var i = 0; i < consecutiveLengths.length; i++) {
+        if (consecutiveLengths[i].length > 1 && "VID".includes(consecutiveLengths[i].letter)) {
+          alert("Not a valid roman numerals");
+          return;
+        }
+        if (consecutiveLengths[i].length > 3 && "IXC".includes(consecutiveLengths[i].letter)) {
+          alert("Not a valid roman numerals");
+          return;
+        }
+        if (consecutiveLengths[i].length > 4 && "M".includes(consecutiveLengths[i].letter)) {
+          alert("Not a valid roman numerals");
+          return;
+        }
       }
 
       var sum = 0;
